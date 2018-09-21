@@ -1,0 +1,63 @@
+import re
+
+Correct = False
+
+print("Automated Readability Index calculator")
+
+while Correct == False:
+    punctuation = '''!()-[]{};:'"\,<>./?@#$%^&*_~'''
+    text = input("Enter your text: ")
+    no_punct=""
+    for char in text:
+        if char not in punctuation:
+            no_punct = no_punct+char
+            
+    characters = (len(no_punct))-no_punct.count(' ')
+    print (characters, "characters")
+    words = len(re.findall(r'\w+', no_punct))
+    print (words, "words")
+    sentenceend = re.compile(r"\.\.\.|\.|\!|\?")
+    sentenceend.findall(text)
+    ['!', '?', '...', '.']
+    sentences = sum(1 for _ in sentenceend.finditer(text))
+    print (sentences, "sentences")
+
+    correct1 = 0
+
+    if words == 0:
+        print("ERROR ERROR ERROR ERROR")
+    else:
+        correct1 = correct1 + 1
+
+    if characters == 0:
+        print("ERROR ERROR ERROR ERROR")
+    else:
+        correct1 = correct1 + 1
+
+    if sentences == 0:
+        print("ERROR ERROR ERROR ERROR")
+    else:
+        correct1 = correct1 + 1
+
+    if correct1 == 3:
+        Correct = True
+        ARIcalc1 = (characters/words)
+        ARIcalc2 = (words/sentences)
+
+        ARI = 4.71*ARIcalc1+0.5*ARIcalc2-21.43
+
+        print ((round (ARI,1)), "is the American grade, suitable for this text.")
+        print(" ")
+
+        endtext = input("Do you want to enter another text? ")
+
+        lowertext = (endtext.lower())
+
+        if lowertext == "no":
+            print("Thank you for using the Automated Readability Index calculator")
+            break
+        if lowertext == "yes":
+            Correct = False
+        else:
+            print("Thank you for using the Automated Readability Index calculator")
+            break
