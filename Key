@@ -1,63 +1,45 @@
-import re
+Titles = ["Harry Potter", "Lord of the Flies"]
+KeyWords = [["wand", "wizard", "hat"],["piggy", "glasses", "jack"]]
+TempList = []
 
-Correct = False
+#Search for a book with key words
 
-print("Automated Readability Index calculator")
+def FindFunc():
 
-while Correct == False:
-    punctuation = '''!()-[]{};:'"\,<>./?@#$%^&*_~'''
-    text = input("Enter your text: ")
-    no_punct=""
-    for char in text:
-        if char not in punctuation:
-            no_punct = no_punct+char
-            
-    characters = (len(no_punct))-no_punct.count(' ')
-    print (characters, "characters")
-    words = len(re.findall(r'\w+', no_punct))
-    print (words, "words")
-    sentenceend = re.compile(r"\.\.\.|\.|\!|\?")
-    sentenceend.findall(text)
-    ['!', '?', '...', '.']
-    sentences = sum(1 for _ in sentenceend.finditer(text))
-    print (sentences, "sentences")
+    Ask = input("Enter a key word: ")
 
-    correct1 = 0
+    AskLow = Ask.lower()
 
-    if words == 0:
-        print("ERROR ERROR ERROR ERROR")
-    else:
-        correct1 = correct1 + 1
+    number = 0
 
-    if characters == 0:
-        print("ERROR ERROR ERROR ERROR")
-    else:
-        correct1 = correct1 + 1
-
-    if sentences == 0:
-        print("ERROR ERROR ERROR ERROR")
-    else:
-        correct1 = correct1 + 1
-
-    if correct1 == 3:
-        Correct = True
-        ARIcalc1 = (characters/words)
-        ARIcalc2 = (words/sentences)
-
-        ARI = 4.71*ARIcalc1+0.5*ARIcalc2-21.43
-
-        print ((round (ARI,1)), "is the American grade, suitable for this text.")
-        print(" ")
-
-        endtext = input("Do you want to enter another text? ")
-
-        lowertext = (endtext.lower())
-
-        if lowertext == "no":
-            print("Thank you for using the Automated Readability Index calculator")
-            break
-        if lowertext == "yes":
-            Correct = False
+    try:
+        for len in Titles:
+            if AskLow in KeyWords[number]:
+                if True:
+                    print(Titles[number])
+                    break
+            else:
+                number = number + 1
+                if AskLow in KeyWords[number]:
+                    if True:
+                        print(Titles[number])
+                        break
         else:
-            print("Thank you for using the Automated Readability Index calculator")
-            break
+            print("Error")
+
+    except IndexError:
+        print("Error! Key word not found!")
+
+FindFunc()
+
+keywordasktitle = input("Enter a title: ")
+Titles.append(keywordasktitle)
+keywordask1 = input("Enter key word one: ")
+TempList.append(keywordask1)
+keywordask2 = input("Enter key word two: ")
+TempList.append(keywordask2)
+keywordask3 = input("Enter key word three: ")
+TempList.append(keywordask3)
+KeyWords.append(TempList)
+
+FindFunc()
