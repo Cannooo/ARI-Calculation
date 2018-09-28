@@ -5,6 +5,18 @@ TempList = []
 
 #Search for a book with key words
 
+def Start():
+    Ask1 = input("What do you want to do? (1.) for searching with key words (2.) add a title and key words (3.) exit ")
+
+    if Ask1 == "1":
+        FindFunc()
+
+    if Ask1 == "2":
+        AddKeyWords()
+
+    if Ask1 == "3":
+        print("Goodbye!")
+
 def FindFunc():
 
     Ask = input("Enter a key word: ")
@@ -31,16 +43,24 @@ def FindFunc():
     except IndexError:
         print("Error! Key word not found!")
 
-FindFunc()
+    Start()
 
-keywordasktitle = input("Enter a title: ")
-Titles.append(keywordasktitle)
-keywordask1 = input("Enter key word one: ")
-TempList.append(keywordask1)
-keywordask2 = input("Enter key word two: ")
-TempList.append(keywordask2)
-keywordask3 = input("Enter key word three: ")
-TempList.append(keywordask3)
-KeyWords.append(TempList)
+def AddKeyWords():
+    keywordasktitle = input("Enter a title: ")
+    Titles.append(keywordasktitle)
+    keywordask1 = input("Enter key word one: ")
+    TempList.append(keywordask1)
+    keywordask2 = input("Enter key word two: ")
+    TempList.append(keywordask2)
+    keywordask3 = input("Enter key word three: ")
+    TempList.append(keywordask3)
+    KeyWords.append(TempList[:])
+    print(TempList)
+    print(KeyWords)
+    print(Titles)
 
-FindFunc()
+    TempList.clear()
+    Start()
+
+
+Start()
