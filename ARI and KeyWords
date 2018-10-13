@@ -1,0 +1,220 @@
+Text = ["October arrived, spreading a damp chill over the grounds and into the castle. Madam Pomfrey, the nurse, was kept busy by a sudden spate of colds among the staff and students. Her Pepperup potion worked instantly, though it left the drinker smoking at the ears for several hours afterward. Ginny Weasley, who had been looking pale, was bullied into taking some by Percy. The steam pouring from under her vivid hair gave the impression that her whole head was on fire. ", "They were in the beginnings of the thick forest, plonking with weary feet on a track, when they heard the noises — squeakings — and the hard strike of hoofs on a path. As they pushed forward the squeaking increased till it became a frenzy. They found a piglet caught in a curtain of creepers, throwing itself at the elastic traces in all the madness of extreme terror. Its voice was thin, needle-sharp and insistent. The three boys rushed forward and Jack drew his knife again with a flourish. He raised his arm in the air. There came a pause, a hiatus, the pig continued to scream and the creepers to jerk, and the blade continued to flash at the end of a bony arm. The pause was only long enough for them to understand what an enormity the downward stroke would be. Then the piglet tore loose from the creepers and scurried into the undergrowth. They were left looking at each other and the place of terror. Jack’s face was white under the freckles. He noticed that he still held the knife aloft and brought his arm down replacing the blade in the sheath. Then they all three laughed ashamedly and began to climb back to the track.", "They were in the beginnings of the thick forest, plonking with weary feet on a track, when they heard the noises — squeakings — and the hard strike of hoofs on a path. As they pushed forward the squeaking increased till it became a frenzy. They found a piglet caught in a curtain of creepers, throwing itself at the elastic traces in all the madness of extreme terror. Its voice was thin, needle-sharp and insistent. The three boys rushed forward and Jack drew his knife again with a flourish. He raised his arm in the air. There came a pause, a hiatus, the pig continued to scream and the creepers to jerk, and the blade continued to flash at the end of a bony arm. The pause was only long enough for them to understand what an enormity the downward stroke would be. Then the piglet tore loose from the creepers and scurried into the undergrowth. They were left looking at each other and the place of terror. Jack’s face was white under the freckles. He noticed that he still held the knife aloft and brought his arm down replacing the blade in the sheath. Then they all three laughed ashamedly and began to climb back to the track."]
+Titles = ["Harry Potter", "Lord of the Flies"]
+KeyWords = [["wand", "wizard", "hat"],["piggy", "glasses", "jack"]]
+TempList = []
+
+import re
+
+###Defention to start the code and give the user options to choose from###
+
+def Start():
+    Ask1 = input("What do you want to do? \n(1.) for searching with key words \n(2.) add a title and key words \n(3.) ARI Calculation \n(4.) exit ")
+
+    if Ask1 == "1":
+        FindFunc()
+
+    if Ask1 == "2":
+        AddKeyWords()
+
+    if Ask1 == "3":
+        ARI()
+
+    if Ask1 == "4":
+        print("Goodbye!")
+
+###Defention for the key words ARI calulation (same thing just a few bits of code taken out to fit the keywords)###
+
+def ARIkey():
+
+    number = 0
+    
+    Correct = False
+
+    while Correct == False:
+        punctuation = '''!()-[]{};:'"\,<>./?@#$%^&*_~'''
+        text = (Text[number])
+        no_punct=""
+        for char in text:
+            if char not in punctuation:
+                no_punct = no_punct+char
+                
+        characters = (len(no_punct))-no_punct.count(' ')
+        print (characters, "characters")
+        words = len(re.findall(r'\w+', no_punct))
+        print (words, "words")
+        sentenceend = re.compile(r"\.\.\.|\.|\!|\?")
+        sentenceend.findall(text)
+        ['!', '?', '...', '.']
+        sentences = sum(1 for _ in sentenceend.finditer(text))
+        print (sentences, "sentences")
+
+        correct1 = 0
+
+        if words == 0:
+            print("ERROR ERROR ERROR ERROR")
+        else:
+            correct1 = correct1 + 1
+
+        if characters == 0:
+            print("ERROR ERROR ERROR ERROR")
+        else:
+            correct1 = correct1 + 1
+
+        if sentences == 0:
+            print("ERROR ERROR ERROR ERROR")
+        else:
+            correct1 = correct1 + 1
+
+        if correct1 == 3:
+            Correct = True
+            ARIcalc1 = (characters/words)
+            ARIcalc2 = (words/sentences)
+
+            ARI = 4.71*ARIcalc1+0.5*ARIcalc2-21.43
+
+            print ((round (ARI,1)), "is the American grade, suitable for this text.")
+            print((round ((ARI+5),1)), "is the reading age of this text")
+            print(" ")
+
+            endtext = input("Do you want to enter another text? ")
+
+            lowertext = (endtext.lower())
+
+            if lowertext == "no":
+                print("Thank you for using the Automated Readability Index calculator")
+                break
+            if lowertext == "yes":
+                Correct = False
+            else:
+                print("Error")
+                break
+
+###Defeniton to find a title and its text through a key word###
+
+def FindFunc():
+
+    Ask = input("Enter a key word: ")
+
+    AskLow = Ask.lower()
+
+    number = 0
+
+    try:
+        for len in Titles:
+            if AskLow in KeyWords[number]:
+                if True:
+                    print(Titles[number])
+                    print(Text[number])
+                    ARIkey()
+                    break
+            else:
+                number = number + 1
+                if AskLow in KeyWords[number]:
+                    if True:
+                        print(Titles[number])
+                        print(Text[number])
+                        ARIkey()
+                        break
+        else:
+            print("Error")
+
+    except IndexError:
+        print("Error! Key word not found!")
+
+    Start()
+
+###Defenition for adding key words###
+
+def AddKeyWords():
+    keywordasktitle = input("Enter a title: ")
+    Titles.append(keywordasktitle)
+    keywordask1 = input("Enter key word one: ")
+    TempList.append(keywordask1)
+    keywordask2 = input("Enter key word two: ")
+    TempList.append(keywordask2)
+    keywordask3 = input("Enter key word three: ")
+    TempList.append(keywordask3)
+    with open('KeyWords.txt', 'w') as f:
+        for item in TempList:
+            f.write("%s " % item)
+
+    with open('KeyWords.txt', 'r') as f:
+        data = f.readlines()
+ 
+    for line in data:
+        words = line.split()
+    print (words)
+    TempList.clear()
+    Start()
+
+###Defenition for the ARI Calculation###
+
+def ARI():
+    Correct = False
+
+    print("Automated Readability Index calculator")
+
+    while Correct == False:
+        punctuation = '''!()-[]{};:'"\,<>./?@#$%^&*_~'''
+        text = input("Enter your text: ")
+        no_punct=""
+        for char in text:
+            if char not in punctuation:
+                no_punct = no_punct+char
+                
+        characters = (len(no_punct))-no_punct.count(' ')
+        print (characters, "characters")
+        words = len(re.findall(r'\w+', no_punct))
+        print (words, "words")
+        sentenceend = re.compile(r"\.\.\.|\.|\!|\?")
+        sentenceend.findall(text)
+        ['!', '?', '...', '.']
+        sentences = sum(1 for _ in sentenceend.finditer(text))
+        print (sentences, "sentences")
+
+        correct1 = 0
+
+        if words == 0:
+            print("ERROR ERROR ERROR ERROR")
+        else:
+            correct1 = correct1 + 1
+
+        if characters == 0:
+            print("ERROR ERROR ERROR ERROR")
+        else:
+            correct1 = correct1 + 1
+
+        if sentences == 0:
+            print("ERROR ERROR ERROR ERROR")
+        else:
+            correct1 = correct1 + 1
+
+        if correct1 == 3:
+            Correct = True
+            ARIcalc1 = (characters/words)
+            ARIcalc2 = (words/sentences)
+
+            ARI = 4.71*ARIcalc1+0.5*ARIcalc2-21.43
+
+            print ((round (ARI,1)), "is the American grade, suitable for this text.")
+            print((round ((ARI+5),1)), "is the reading age of this text")
+            print(" ")
+
+            endtext = input("Do you want to enter another text? ")
+
+            lowertext = (endtext.lower())
+
+            if lowertext == "no":
+                print("Thank you for using the Automated Readability Index calculator")
+                break
+            if lowertext == "yes":
+                Correct = False
+            else:
+                print("Thank you for using the Automated Readability Index calculator")
+                break
+
+
+    Start()
+
+
+Start()
