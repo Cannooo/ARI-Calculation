@@ -1,0 +1,221 @@
+Text = []
+Titles = []
+KeyWords = []
+ARIlist = []
+TempList = []
+
+import re
+
+End = False
+
+while End == False:
+
+    print("(1.) For searching with key words \n(2.) Add a text, key words and a title \n(3.) ARI Calculation \n(4.) For searching with ARI \n(5.) Exit")
+    print(" ")
+    Askfirst = input("What do you want to do? ")
+
+
+    if Askfirst == "1":
+        Ask = input("Enter a key word: ")
+
+        AskLow = Ask.lower()
+
+        number = 0
+
+        calc = False
+
+        try:
+            for len in Titles:
+                while calc == False:
+                    if AskLow in KeyWords[number]:
+                        if True:
+                            print(" ")
+                            print("The recommended titleis:", Titles[number])
+                            print(" ")
+                            print("The recommended text is:", Text[number])
+                            print(" ")
+                            print("This has an ARI of", ARIlist[number])
+                            calc = True
+                    else:
+                        number = number + 1
+                        if AskLow in KeyWords[number]:
+                            if True:
+                                print(" ")
+                                print("The recommended titleis:", Titles[number])
+                                print(" ")
+                                print("The recommended text is:", Text[number])
+                                print(" ")
+                                print("This has an ARI of", ARIlist[number])
+                                calc = True
+            else:
+                if calc == False:
+                    print("Error")
+                    print(" ")
+                else:
+                    print(" ")
+
+        except IndexError:
+            print("Error! Key word not found!")
+
+
+    if Askfirst == "2":
+
+        Correct = False
+
+        print(" ")
+
+        while Correct == False:
+            
+            punctuation = '''!()-[]{};:'"\,<>./?@#$%^&*_~'''
+            text = input("Enter your text: ")
+            Text.append(text)
+            no_punct=""
+            for char in text:
+                if char not in punctuation:
+                    no_punct = no_punct+char
+                    
+            characters = (len(no_punct))-no_punct.count(' ')
+            words = len(re.findall(r'\w+', no_punct))
+            sentenceend = re.compile(r"\.\.\.|\.|\!|\?")
+            sentenceend.findall(text)
+            ['!', '?', '...', '.']
+            sentences = sum(1 for _ in sentenceend.finditer(text))
+
+            keywordasktitle = input("Enter a title: ")
+            Titles.append(keywordasktitle)
+            keywordask1 = input("Enter key word one: ")
+            TempList.append(keywordask1)
+            keywordask2 = input("Enter key word two: ")
+            TempList.append(keywordask2)
+            keywordask3 = input("Enter key word three: ")
+            TempList.append(keywordask3)
+            KeyWords.append(TempList[:])
+            TempList.clear()
+
+            correct1 = 0
+
+            if words == 0:
+                print("ERROR ERROR ERROR ERROR")
+            else:
+                correct1 = correct1 + 1
+
+            if characters == 0:
+                print("ERROR ERROR ERROR ERROR")
+            else:
+                correct1 = correct1 + 1
+
+            if sentences == 0:
+                print("ERROR ERROR ERROR ERROR")
+            else:
+                correct1 = correct1 + 1
+
+            if correct1 == 3:
+                Correct = True
+                ARIcalc1 = (characters/words)
+                ARIcalc2 = (words/sentences)
+
+                ARI = 4.71*ARIcalc1+0.5*ARIcalc2-21.43
+
+                roundARI = (round ((ARI+5),1))
+
+                stringedARI = str(roundARI)
+
+                ARIlist.append(stringedARI)
+
+                print(" ")
+                print (characters, "characters")
+                print (words, "words")
+                print (sentences, "sentences")
+                print ((round (ARI,1)), "is the American grade, suitable for this text.")
+                print((round ((ARI+5),1)), "is the reading age of this text")
+                print(" ")
+
+                break
+
+    if Askfirst == "3":
+
+        Correct = False
+
+        print(" ")
+
+        while Correct == False:
+            
+            punctuation = '''!()-[]{};:'"\,<>./?@#$%^&*_~'''
+            text = input("Enter your text: ")
+            Text.append(text)
+            no_punct=""
+            for char in text:
+                if char not in punctuation:
+                    no_punct = no_punct+char
+                    
+            characters = (len(no_punct))-no_punct.count(' ')
+            print (characters, "characters")
+            words = len(re.findall(r'\w+', no_punct))
+            print (words, "words")
+            sentenceend = re.compile(r"\.\.\.|\.|\!|\?")
+            sentenceend.findall(text)
+            ['!', '?', '...', '.']
+            sentences = sum(1 for _ in sentenceend.finditer(text))
+            print (sentences, "sentences")
+
+            correct1 = 0
+
+            if words == 0:
+                print("ERROR ERROR ERROR ERROR")
+            else:
+                correct1 = correct1 + 1
+
+            if characters == 0:
+                print("ERROR ERROR ERROR ERROR")
+            else:
+                correct1 = correct1 + 1
+
+            if sentences == 0:
+                print("ERROR ERROR ERROR ERROR")
+            else:
+                correct1 = correct1 + 1
+
+            if correct1 == 3:
+                Correct = True
+                ARIcalc1 = (characters/words)
+                ARIcalc2 = (words/sentences)
+
+                ARI = 4.71*ARIcalc1+0.5*ARIcalc2-21.43
+
+                print(" ")
+                print ((round (ARI,1)), "is the American grade, suitable for this text.")
+                print((round ((ARI+5),1)), "is the reading age of this text")
+                print(" ")
+
+                break
+
+    if Askfirst == "4":
+        AskARI = input("Enter an ARI to search with: ")
+
+        if AskARI in ARIlist:
+            pos = ARIlist.index(AskARI)
+            print(" ")
+            print("THE TITLE WITH THIS ARI IS:", Titles[pos])
+            print(" ")
+            print("THE TEXT WITH THIS ARI IS:", Text[pos])
+            print(" ")
+        else:
+            print("Error! Cannot find text with that ARI.")
+            print(" ")
+
+
+
+
+
+    if Askfirst == "5":
+        sure = input("Are you sure you want to quit? ")
+        print(" ")
+
+        surelow = sure.lower()
+
+        if surelow == "yes":
+            print("Goodbye!")
+            break
+        if surelow == "no":
+            print("Returning to main screen")
+            print(" ")
