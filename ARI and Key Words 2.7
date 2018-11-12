@@ -1,0 +1,281 @@
+Text = []
+Titles = []
+KeyWords = []
+TempList = []
+ARIlist = []
+
+import pickle
+import re
+
+###Defention to start the code and give the user options to choose from###
+
+print("###WARNING### if you quit without saving all added information will not save to the text files")
+
+with open('Textf.txt', 'r') as f:
+    Text = f.readlines()
+
+with open('Titlesf.txt', 'r') as f:
+    Titles = f.readlines()
+
+with open('KeyWordsf.txt', 'r') as f:
+    KeyWords = f.readlines()
+
+with open('ARIListf.txt', 'r') as f:
+    ARIlist = f.readlines()
+
+
+def Start():
+    
+    print("(1.) For searching with key words \n(2.) Add a text, key words and a title \n(3.) ARI Calculation \n(4.) For searching with ARI \n(5.) To save and exit")
+    print(" ")
+    Askfirst = input("What do you want to do? ")
+
+    if Askfirst == "1":
+        FindFunc()
+
+    if Askfirst == "2":
+        AddKWandText()
+
+    if Askfirst == "3":
+        ARI()
+
+    if Askfirst == "4":
+        ARIsearch()
+
+    if Askfirst == "5":
+
+        with open('Textf.txt', 'w') as f:
+            for item in Text:
+                f.write("%s \n" % item)
+
+        with open('Titlesf.txt', 'w') as f:
+            for item in Titles:
+                f.write("%s \n" % item)
+
+        with open('KeyWordsf.txt', 'w') as f:
+            for item in KeyWords:
+                f.write("%s \n" % item)
+
+        with open('ARIListf.txt', 'w') as f:
+            for item in ARIlist:
+                f.write("%s \n" % item)
+
+        print("Goodbye!")
+        
+
+
+###Defeniton to find a title and its text through a key word###
+
+def FindFunc():
+
+    Ask = input("Enter a key word: ")
+
+    AskLow = Ask.lower()
+
+    number = 0
+
+    calc = False
+
+    try:
+        for len in Titles:
+            while calc == False:
+                if AskLow in KeyWords[number]:
+                    if True:
+                        print("############################")
+                        print(" ")
+                        print("The recommended title is:", Titles[number])
+                        print(" ")
+                        print("The recommended text is:", Text[number])
+                        print(" ")
+                        print("This has an ARI of", ARIlist[number])
+                        print("############################")
+                        calc = True
+                else:
+                    number = number + 1
+                    if AskLow in KeyWords[number]:
+                        if True:
+                            print("############################")
+                            print(" ")
+                            print("The recommended title is:", Titles[number])
+                            print(" ")
+                            print("The recommended text is:", Text[number])
+                            print(" ")
+                            print("This has an ARI of", ARIlist[number])
+                            print("############################")
+                            calc = True
+        else:
+            if calc == False:
+                print("Error! Key word not found!")
+                print(" ")
+            else:
+                print(" ")
+
+    except IndexError:
+        print("Error! Key word not found!")
+
+    Start()
+
+###Defenition for adding key words###
+
+def AddKWandText():
+    Correct = False
+
+    print(" ")
+
+    while Correct == False:
+        
+        punctuation = '''!()-[]{};:'"\,<>./?@#$%^&*_~'''
+        text = input("Enter your text: ")
+        Text.append(text)
+        no_punct=""
+        for char in text:
+            if char not in punctuation:
+                no_punct = no_punct+char
+                
+        characters = (len(no_punct))-no_punct.count(' ')
+        words = len(re.findall(r'\w+', no_punct))
+        sentenceend = re.compile(r"\.\.\.|\.|\!|\?")
+        sentenceend.findall(text)
+        ['!', '?', '...', '.']
+        sentences = sum(1 for _ in sentenceend.finditer(text))
+
+        keywordasktitle = input("Enter a title: ")
+        Titles.append(keywordasktitle)
+        keywordask1 = input("Enter key word one: ")
+        TempList.append(keywordask1)
+        keywordask2 = input("Enter key word two: ")
+        TempList.append(keywordask2)
+        keywordask3 = input("Enter key word three: ")
+        TempList.append(keywordask3)
+        KeyWords.append(TempList[:])
+        TempList.clear()
+
+        correct1 = 0
+
+        if words == 0:
+            print("ERROR ERROR ERROR ERROR")
+        else:
+            correct1 = correct1 + 1
+
+        if characters == 0:
+            print("ERROR ERROR ERROR ERROR")
+        else:
+            correct1 = correct1 + 1
+
+        if sentences == 0:
+            print("ERROR ERROR ERROR ERROR")
+        else:
+            correct1 = correct1 + 1
+
+        if correct1 == 3:
+            Correct = True
+            ARIcalc1 = (characters/words)
+            ARIcalc2 = (words/sentences)
+
+            ARI = 4.71*ARIcalc1+0.5*ARIcalc2-21.43
+
+            roundARI = (round ((ARI+5),1))
+
+            stringedARI = str(roundARI)
+
+            ARIlist.append(stringedARI)
+
+            print("############################")
+            print(" ")
+            print (characters, "characters")
+            print (words, "words")
+            print (sentences, "sentences")
+            print ((round (ARI,1)), "is the American grade, suitable for this text.")
+            print((round ((ARI+5),1)), "is the reading age of this text")
+            print(" ")
+            print("############################")
+
+            break
+    Start()
+
+
+###Defenition for the ARI Calculation###
+
+def ARI():
+    Correct = False
+
+    print(" ")
+
+    while Correct == False:
+        
+        punctuation = '''!()-[]{};:'"\,<>./?@#$%^&*_~'''
+        text = input("Enter your text: ")
+        Text.append(text)
+        no_punct=""
+        for char in text:
+            if char not in punctuation:
+                no_punct = no_punct+char
+                
+        characters = (len(no_punct))-no_punct.count(' ')
+        print (characters, "characters")
+        words = len(re.findall(r'\w+', no_punct))
+        print (words, "words")
+        sentenceend = re.compile(r"\.\.\.|\.|\!|\?")
+        sentenceend.findall(text)
+        ['!', '?', '...', '.']
+        sentences = sum(1 for _ in sentenceend.finditer(text))
+        print (sentences, "sentences")
+
+        correct1 = 0
+
+        if words == 0:
+            print("ERROR ERROR ERROR ERROR")
+        else:
+            correct1 = correct1 + 1
+
+        if characters == 0:
+            print("ERROR ERROR ERROR ERROR")
+        else:
+            correct1 = correct1 + 1
+
+        if sentences == 0:
+            print("ERROR ERROR ERROR ERROR")
+        else:
+            correct1 = correct1 + 1
+
+        if correct1 == 3:
+            Correct = True
+            ARIcalc1 = (characters/words)
+            ARIcalc2 = (words/sentences)
+
+            ARI = 4.71*ARIcalc1+0.5*ARIcalc2-21.43
+
+            print("############################")
+            print(" ")
+            print ((round (ARI,1)), "is the American grade, suitable for this text.")
+            print((round ((ARI+5),1)), "is the reading age of this text")
+            print(" ")
+            print("############################")
+
+            break
+    Start()
+
+def ARIsearch():
+    print(ARIlist)
+    print(Titles)
+    print(Text)
+    
+    AskARI = input("Enter an ARI to search with: ")
+
+    if AskARI in ARIlist:
+        pos = ARIlist.index(AskARI)
+        print("############################")
+        print(" ")
+        print("The title with this ARI is:", Titles[pos])
+        print(" ")
+        print("The text with this ARI is:", Text[pos])
+        print(" ")
+        print("############################")
+    else:
+        print("Error! Cannot find text with that ARI.")
+        print(" ")
+
+    Start()
+
+
+Start()
