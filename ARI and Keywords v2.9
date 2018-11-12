@@ -5,7 +5,6 @@ KeyWords = []
 TempList = []
 ARIlist = []
 
-import pickle
 import re
 
 print("###WARNING### if you quit without saving all added information will not save to the text files")
@@ -88,17 +87,17 @@ def infoRemove():
         FindFuncSimple()
 
     if removeAskl == "titles":
-        print("Test")
+        titleRemove()
 
     if removeAskl == "ari":
-        print("Test")
+        ariRemove()
 
 
 ###Simplified Find function for the remove funtion###
 
 def FindFuncSimple():
 
-    simpleAsk = input("Enter the key word you want to remove:")
+    simpleAsk = input("Enter the key word you want to remove: ")
 
     simpleLow = simpleAsk.lower()
 
@@ -111,17 +110,17 @@ def FindFuncSimple():
             while calcs == False:
                 if simpleLow in KeyWords[number]:
                     if True:
-                        confirmAsk = input("Are you sure you want to remove this key word and everything that corresponding with it? ")
+                        confirmAsk1 = input("Are you sure you want to remove this key word and everything that corresponding with it? ")
 
-                        confirmLower = confirmAsk.lower()
+                        confirmLower1 = confirmAsk1.lower()
 
-                        if confirmLower == "yes":
+                        if confirmLower1 == "yes":
                             del (Text[number])
                             del (KeyWords[number])
                             del (Titles[number])
                             del (ARIlist[number])
                             calcs = True
-                        if confirmLower == "no":
+                        else:
                             print("Returing you to the menue...")
                             Start()
                 else:
@@ -129,17 +128,17 @@ def FindFuncSimple():
                     if simpleLow in KeyWords[number]:
                         if True:
                             posy = KeyWords[number]
-                            confirmAsk = input("Are you sure you want to remove this key word and everything that corresponding with it? ")
+                            confirmAsk1 = input("Are you sure you want to remove this key word and everything that corresponding with it? ")
 
-                            confirmLower = confirmAsk.lower()
+                            confirmLower1 = confirmAsk1.lower()
 
-                            if confirmLower == "yes":
+                            if confirmLower1 == "yes":
                                 del (Text[number])
                                 del (KeyWords[number])
                                 del (Titles[number])
                                 del (ARIlist[number])
                                 calcs = True
-                            if confirmLower == "no":
+                            else:
                                 print("Returing you to the menue...")
                                 Start()
             else:
@@ -154,7 +153,59 @@ def FindFuncSimple():
 
 
     Start()
-                
+
+###Defenition to remove information through Titles###
+
+def titleRemove():
+    removet = input("Enter the title you want to remove: ")
+
+    if removet in Titles:
+        posy1 = Titles.index(removet)
+        confirmAsk2 = input("Are you sure you want to remove this key word and everything that corresponding with it? ")
+
+        confirmLower2 = confirmAsk2.lower()
+
+        if confirmLower2 == "yes":
+            del (Text[posy1])
+            del (KeyWords[posy1])
+            del (Titles[posy1])
+            del (ARIlist[posy1])
+            calcs = True
+        else:
+            print("Returing you to the menue...")
+            Start()
+    else:
+        print("Error! That title was not found!.")
+        print(" ")
+
+    Start()
+
+###Defenition to remove information through ARI###
+
+def ariRemove():
+    removea = input("Enter the title you want to remove: ")
+
+    if removea in ARIlist:
+        posy1 = ARIlist.index(removea)
+        confirmAsk3 = input("Are you sure you want to remove this key word and everything that corresponding with it? ")
+
+        confirmLower3 = confirmAsk3.lower()
+
+        if confirmLower3 == "yes":
+            del (Text[posy1])
+            del (KeyWords[posy1])
+            del (Titles[posy1])
+            del (ARIlist[posy1])
+            calcs = True
+        else:
+            print("Returing you to the menue...")
+            Start()
+    else:
+        print("Error! that ARI was not found.")
+        print(" ")
+
+    Start()
+    
                                 
 ###Defeniton to find a title and its text through a key word###
 
