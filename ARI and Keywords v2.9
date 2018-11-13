@@ -5,7 +5,7 @@ KeyWords = []
 TempList = []
 ARIlist = []
 
-import pickle
+
 import re
 
 print("###WARNING### if you quit without saving all added information will not save to the text files")
@@ -13,16 +13,16 @@ print(" ")
 
 ###pulling down the information from the text files so they can be used for the user when they request it###
 
-with open('Textf.txt', 'r') as f:
+with open('Textf.txt.txt', 'r') as f:
     Text = f.readlines()
 
-with open('Titlesf.txt', 'r') as f:
+with open('Titlesf.txt.txt', 'r') as f:
     Titles = f.readlines()
 
-with open('KeyWordsf.txt', 'r') as f:
+with open('KeyWordsf.txt.txt', 'r') as f:
     KeyWords = f.readlines()
 
-with open('ARIListf.txt', 'r') as f:
+with open('ARIListf.txt.txt', 'r') as f:
     ARIlist = f.readlines()
 
 
@@ -54,19 +54,19 @@ def Start():
         ##when the user quits    ##
         ###########################
 
-        with open('Textf.txt', 'w') as f:
+        with open('Textf.txt.txt', 'w') as f:
             for item in Text:
                 f.write("%s \n" % item)
 
-        with open('Titlesf.txt', 'w') as f:
+        with open('Titlesf.txt.txt', 'w') as f:
             for item in Titles:
                 f.write("%s \n" % item)
 
-        with open('KeyWordsf.txt', 'w') as f:
+        with open('KeyWordsf.txt.txt', 'w') as f:
             for item in KeyWords:
                 f.write("%s \n" % item)
 
-        with open('ARIListf.txt', 'w') as f:
+        with open('ARIListf.txt.txt', 'w') as f:
             for item in ARIlist:
                 f.write("%s \n" % item)
 
