@@ -1,0 +1,37 @@
+from random import randint
+
+PlayerOneScore = 0
+PlayerTwoScore = 0
+
+playerOneRoll = input("Enter 1 to roll your dice: ")
+
+Turn = True
+
+while Turn == True:
+    if playerOneRoll == "1":
+        DiceRollOne = randint(0, 6)
+        PlayerOneScore = PlayerOneScore + DiceRollOne
+        print("First Dice Roll Is", DiceRollOne)
+        oddoreven = (DiceRolloOne % 2)
+        if oddoreven == 0:
+            PlayerOneScore = PlayerOneScore + 10
+            print("Even")
+        if oddoreven >= 1:
+            PlayerOneScore = PlayerOneScore - 5
+            print("Odd")
+
+        DiceRollTwo = randint(0, 6)
+        PlayerOneScore = PlayerTwoScore + DiceRollTwo
+        print("Second Dice Roll Is", DiceRollTwo)
+        oddoreven = (DiceRolloTwo % 2)
+        if oddoreven == 0:
+            PlayerOneScore = PlayerOneScore + 10
+            print("Even")
+        if oddoreven >= 1:
+            PlayerOneScore = PlayerOneScore - 5
+            print("Odd")
+
+    if DiceRollOne == DiceRollTwo:
+        Turn = True
+    else:
+        Turn = False
